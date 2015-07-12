@@ -19,6 +19,24 @@
     </LogicalFolder>
     <LogicalFolder Name="Queries" Type="0" Sorted="true">
       <Items>
+        <FileNode Name="[dbo].[Account.Modify].sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(LocalDb)\v11.0:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>(LocalDb)\v11.0</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>[dbo].[Account.Modify].sql</FullPath>
+        </FileNode>
+        <FileNode Name="[dbo].[Accounts.Codes.View].sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(LocalDb)\v11.0:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>(LocalDb)\v11.0</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>[dbo].[Accounts.Codes.View].sql</FullPath>
+        </FileNode>
+        <FileNode Name="[dbo].[Accounts.View].sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(LocalDb)\v11.0:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>(LocalDb)\v11.0</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>[dbo].[Accounts.View].sql</FullPath>
+        </FileNode>
         <FileNode Name="[dbo].[Client.Modify].sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(LocalDb)\v11.0:True</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>(LocalDb)\v11.0</AssociatedConnSrvName>
@@ -42,6 +60,12 @@
           <AssociatedConnSrvName>(LocalDb)\v11.0</AssociatedConnSrvName>
           <AssociatedConnUserName />
           <FullPath>02-ConfigData.sql</FullPath>
+        </FileNode>
+        <FileNode Name="ConfigData2.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(LocalDb)\v11.0:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>(LocalDb)\v11.0</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>ConfigData2.sql</FullPath>
         </FileNode>
       </Items>
     </LogicalFolder>

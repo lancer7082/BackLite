@@ -1,7 +1,9 @@
 packages
 BackLite/obj
 BackLite/bin
-BackLite.Tests/obj
-BackLite.Tests/bin
+BackLite.Test/obj
+BackLite.Test/bin
 BackLite.Data/obj
 BackLite.Data/bin
+BackLite.Client/obj
+BackLite.Client/bin

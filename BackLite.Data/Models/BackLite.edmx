@@ -6,91 +6,121 @@
     <edmx:StorageModels>
     <Schema Namespace="BackLiteModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="BackLiteModelStoreContainer">
-          <EntitySet Name="Clients" EntityType="BackLiteModel.Store.Clients" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Accounts_Codes_View" EntityType="BackLiteModel.Store.Accounts_Codes_View" store:Type="Views" store:Schema="dbo" store:Name="Accounts.Codes.View">
+            <DefiningQuery>SELECT 
+      [Accounts_Codes_View].[CodeId] AS [CodeId], 
+      [Accounts_Codes_View].[AccountId] AS [AccountId], 
+      [Accounts_Codes_View].[Code] AS [Code], 
+      [Accounts_Codes_View].[IsRegistered] AS [IsRegistered]
+      FROM [dbo].[Accounts.Codes.View] AS [Accounts_Codes_View]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Accounts_View" EntityType="BackLiteModel.Store.Accounts_View" store:Type="Views" store:Schema="dbo" store:Name="Accounts.View">
+            <DefiningQuery>SELECT 
+      [Accounts_View].[AccountId] AS [AccountId], 
+      [Accounts_View].[ClientId] AS [ClientId], 
+      [Accounts_View].[Identifier] AS [Identifier], 
+      [Accounts_View].[PlatformId] AS [PlatformId], 
+      [Accounts_View].[Code] AS [Code]
+      FROM [dbo].[Accounts.View] AS [Accounts_View]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
-        <EntityType Name="Clients">
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'BackLite.dbo.Accounts.Codes.View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="Accounts_Codes_View">
           <Key>
-            <PropertyRef Name="ClientId" />
+            <PropertyRef Name="CodeId" />
           </Key>
-          <Property Name="ClientId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="varchar" MaxLength="100" />
-          <Property Name="MiddleName" Type="varchar" MaxLength="100" />
-          <Property Name="LastName" Type="varchar" MaxLength="100" />
-          <Property Name="Email" Type="varchar" MaxLength="100" />
-          <Property Name="DateBirth" Type="date" Nullable="false" />
-          <Property Name="Gender" Type="smallint" Nullable="false" />
+          <Property Name="CodeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AccountId" Type="int" Nullable="false" />
+          <Property Name="Code" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="IsRegistered" Type="bit" Nullable="false" />
         </EntityType>
-        <Function Name="Client_Modify" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" StoreFunctionName="Client.Modify" Schema="dbo">
-          <Parameter Name="ClientId" Type="int" Mode="In" />
-          <Parameter Name="FirstName" Type="varchar" Mode="In" />
-          <Parameter Name="LastName" Type="varchar" Mode="In" />
-          <Parameter Name="Email" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="Clients_View" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" StoreFunctionName="Clients.View" Schema="dbo" />
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'BackLite.dbo.Accounts.View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="Accounts_View">
+          <Key>
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Name="AccountId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="Identifier" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="PlatformId" Type="int" Nullable="false" />
+          <Property Name="Code" Type="varchar" Nullable="false" MaxLength="30" />
+        </EntityType>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BackLiteModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="BackLiteEntities" p1:LazyLoadingEnabled="true">
-          <FunctionImport Name="ClientsView" EntitySet="Clients" ReturnType="Collection(BackLiteModel.Client)" />
-          <EntitySet Name="Clients" EntityType="BackLiteModel.Client" />
-          <FunctionImport Name="Client_Modify">
-            <Parameter Name="ClientId" Mode="In" Type="Int32" />
-            <Parameter Name="FirstName" Mode="In" Type="String" />
-            <Parameter Name="LastName" Mode="In" Type="String" />
-            <Parameter Name="Email" Mode="In" Type="String" />
-          </FunctionImport>
+          <EntitySet Name="AccountCodes" EntityType="BackLiteModel.AccountCode" />
+          <EntitySet Name="Accounts" EntityType="BackLiteModel.Account" />
+          <AssociationSet Name="AccountAccountCode" Association="BackLiteModel.AccountAccountCode">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="AccountCode" EntitySet="AccountCodes" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Client">
+        <EntityType Name="AccountCode">
           <Key>
-            <PropertyRef Name="ClientId" />
+            <PropertyRef Name="CodeId" />
           </Key>
-          <Property Type="Int32" Name="ClientId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="FirstName" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="MiddleName" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="LastName" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Email" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="DateBirth" Nullable="false" Precision="0" />
-          <Property Type="Int16" Name="Gender" Nullable="false" />
+          <Property Type="Int32" Name="CodeId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="AccountId" Nullable="false" />
+          <Property Type="String" Name="Code" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IsRegistered" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="BackLiteModel.AccountAccountCode" FromRole="AccountCode" ToRole="Account" />
         </EntityType>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Type="Int32" Name="AccountId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="ClientId" Nullable="false" />
+          <Property Type="String" Name="Identifier" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="PlatformId" Nullable="false" />
+          <Property Type="String" Name="Code" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AccountCodes" Relationship="BackLiteModel.AccountAccountCode" FromRole="Account" ToRole="AccountCode" />
+        </EntityType>
+        <Association Name="AccountAccountCode">
+          <End Type="BackLiteModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="BackLiteModel.AccountCode" Role="AccountCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountId" />
+            </Principal>
+            <Dependent Role="AccountCode">
+              <PropertyRef Name="AccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="BackLiteModelStoreContainer" CdmEntityContainer="BackLiteEntities">
-          <FunctionImportMapping FunctionImportName="ClientsView" FunctionName="BackLiteModel.Store.Clients_View">
-          </FunctionImportMapping>
-          <EntitySetMapping Name="Clients">
-            <EntityTypeMapping TypeName="BackLiteModel.Client">
-              <MappingFragment StoreEntitySet="Clients">
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="DateBirth" ColumnName="DateBirth" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <EntitySetMapping Name="AccountCodes">
+            <EntityTypeMapping TypeName="BackLiteModel.AccountCode">
+              <MappingFragment StoreEntitySet="Accounts_Codes_View">
+                <ScalarProperty Name="IsRegistered" ColumnName="IsRegistered" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="CodeId" ColumnName="CodeId" />
               </MappingFragment>
             </EntityTypeMapping>
-            <EntityTypeMapping TypeName="BackLiteModel.Client">
-              <ModificationFunctionMapping>
-                <InsertFunction FunctionName="BackLiteModel.Store.Client_Modify">
-                  <ScalarProperty Name="Email" ParameterName="Email" />
-                  <ScalarProperty Name="LastName" ParameterName="LastName" />
-                  <ScalarProperty Name="FirstName" ParameterName="FirstName" />
-                  <ScalarProperty Name="ClientId" ParameterName="ClientId" />
-                </InsertFunction>
-                <UpdateFunction FunctionName="BackLiteModel.Store.Client_Modify">
-                  <ScalarProperty Name="Email" ParameterName="Email" Version="Current" />
-                  <ScalarProperty Name="LastName" ParameterName="LastName" Version="Current" />
-                  <ScalarProperty Name="FirstName" ParameterName="FirstName" Version="Current" />
-                  <ScalarProperty Name="ClientId" ParameterName="ClientId" Version="Current" />
-                </UpdateFunction>
-              </ModificationFunctionMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="BackLiteModel.Account">
+              <MappingFragment StoreEntitySet="Accounts_View">
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="PlatformId" ColumnName="PlatformId" />
+                <ScalarProperty Name="Identifier" ColumnName="Identifier" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+              </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="Client_Modify" FunctionName="BackLiteModel.Store.Client_Modify" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

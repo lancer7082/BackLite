@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackLite.Tests", "BackLite.Tests\BackLite.Tests.csproj", "{FB7BDFE8-6D73-4C12-845D-E027E5DFE2C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackLite.Test", "BackLite.Test\BackLite.Test.csproj", "{FB7BDFE8-6D73-4C12-845D-E027E5DFE2C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackLite.Data", "BackLite.Data\BackLite.Data.csproj", "{3CCF410D-93B0-4FB3-8BA1-05314E4FF60F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackLite.Client", "BackLite.Client\BackLite.Client.csproj", "{E62EEF8C-AB93-4FF4-8CE5-8FFABC393BDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +21,10 @@ Global
 		{3CCF410D-93B0-4FB3-8BA1-05314E4FF60F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CCF410D-93B0-4FB3-8BA1-05314E4FF60F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CCF410D-93B0-4FB3-8BA1-05314E4FF60F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E62EEF8C-AB93-4FF4-8CE5-8FFABC393BDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E62EEF8C-AB93-4FF4-8CE5-8FFABC393BDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E62EEF8C-AB93-4FF4-8CE5-8FFABC393BDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E62EEF8C-AB93-4FF4-8CE5-8FFABC393BDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

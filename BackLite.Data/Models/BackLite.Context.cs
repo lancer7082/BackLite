@@ -12,9 +12,6 @@ namespace BackLite.Data.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Objects;
-    using System.Data.Objects.DataClasses;
-    using System.Linq;
     
     public partial class BackLiteEntities : DbContext
     {
@@ -28,37 +25,7 @@ namespace BackLite.Data.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<Client> Clients { get; set; }
-    
-        public virtual ObjectResult<Client> ClientsView()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Client>("ClientsView");
-        }
-    
-        public virtual ObjectResult<Client> ClientsView(MergeOption mergeOption)
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Client>("ClientsView", mergeOption);
-        }
-    
-        public virtual int Client_Modify(Nullable<int> clientId, string firstName, string lastName, string email)
-        {
-            var clientIdParameter = clientId.HasValue ?
-                new ObjectParameter("ClientId", clientId) :
-                new ObjectParameter("ClientId", typeof(int));
-    
-            var firstNameParameter = firstName != null ?
-                new ObjectParameter("FirstName", firstName) :
-                new ObjectParameter("FirstName", typeof(string));
-    
-            var lastNameParameter = lastName != null ?
-                new ObjectParameter("LastName", lastName) :
-                new ObjectParameter("LastName", typeof(string));
-    
-            var emailParameter = email != null ?
-                new ObjectParameter("Email", email) :
-                new ObjectParameter("Email", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Client_Modify", clientIdParameter, firstNameParameter, lastNameParameter, emailParameter);
-        }
+        public DbSet<AccountCode> AccountCodes { get; set; }
+        public DbSet<Account> Accounts { get; set; }
     }
 }

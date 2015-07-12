@@ -19,3 +19,30 @@ IF OBJECT_ID('[dbo].[Clients]') IS NULL
 		[DateBirth] DATE NOT NULL,
 		[Gender]    SMALLINT NOT NULL
 	)
+
+IF OBJECT_ID('[dbo].[Accounts]') IS NULL
+BEGIN
+	CREATE TABLE [dbo].[Accounts] (
+    [AccountId] INT PRIMARY KEY IDENTITY(1,1),
+    [ClientId] INT NOT NULL,
+    [Identifier] VARCHAR(30) NOT NULL,
+    [PlatformId] INT NOT NULL,
+    [Code] VARCHAR(30) NOT NULL
+  )
+
+  ALTER TABLE [dbo].[Accounts] ADD CONSTRAINT [FK_Clients_ClientId] FOREIGN KEY ([ClientId])
+  REFERENCES [dbo].[Clients]([ClientId]) 
+END
+
+IF OBJECT_ID('[dbo].[Accounts.Codes]') IS NULL
+BEGIN
+	CREATE TABLE [dbo].[Accounts.Codes] (    
+    [CodeId] INT PRIMARY KEY IDENTITY(1,1),
+    [AccountId] INT NOT NULL,
+    [Code] VARCHAR(30) NOT NULL,
+    [IsRegistered] BIT NOT NULL DEFAULT(0)
+  )
+
+  ALTER TABLE [dbo].[Accounts.Codes] ADD CONSTRAINT [FK_Accounts.Codes#AccountId] FOREIGN KEY ([AccountId])
+  REFERENCES [dbo].[Accounts]([AccountId]) 
+END

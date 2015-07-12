@@ -4,8 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="81aecc9ca76445d681089af2224bfeb9" Name="Diagram1">
-        <EntityTypeShape EntityType="BackLiteModel.Client" Width="1.5" PointX="1.875" PointY="18.375" />
+      <Diagram DiagramId="81aecc9ca76445d681089af2224bfeb9" Name="Diagram1" ZoomLevel="100">
+        <EntityTypeShape EntityType="BackLiteModel.AccountCode" Width="1.5" PointX="3.125" PointY="0.75" />
+        <EntityTypeShape EntityType="BackLiteModel.Account" Width="1.5" PointX="0.625" PointY="0.625" />
+        <AssociationConnector Association="BackLiteModel.AccountAccountCode" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
