@@ -4,51 +4,56 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BackLiteModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityContainer Name="BackLiteModelStoreContainer">
-          <EntitySet Name="Accounts_Codes_View" EntityType="BackLiteModel.Store.Accounts_Codes_View" store:Type="Views" store:Schema="dbo" store:Name="Accounts.Codes.View">
-            <DefiningQuery>SELECT 
-      [Accounts_Codes_View].[CodeId] AS [CodeId], 
-      [Accounts_Codes_View].[AccountId] AS [AccountId], 
-      [Accounts_Codes_View].[Code] AS [Code], 
-      [Accounts_Codes_View].[IsRegistered] AS [IsRegistered]
-      FROM [dbo].[Accounts.Codes.View] AS [Accounts_Codes_View]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Accounts_View" EntityType="BackLiteModel.Store.Accounts_View" store:Type="Views" store:Schema="dbo" store:Name="Accounts.View">
-            <DefiningQuery>SELECT 
-      [Accounts_View].[AccountId] AS [AccountId], 
-      [Accounts_View].[ClientId] AS [ClientId], 
-      [Accounts_View].[Identifier] AS [Identifier], 
-      [Accounts_View].[PlatformId] AS [PlatformId], 
-      [Accounts_View].[Code] AS [Code]
-      FROM [dbo].[Accounts.View] AS [Accounts_View]</DefiningQuery>
-          </EntitySet>
-        </EntityContainer>
+    <Schema Namespace="BackLiteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'BackLite.dbo.Accounts.Codes.View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
+warning 6002: The table/view 'BackLite.dbo.Accounts.Codes.View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Accounts_Codes_View">
           <Key>
             <PropertyRef Name="CodeId" />
+            
+            
+            
           </Key>
-          <Property Name="CodeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CodeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AccountId" Type="int" Nullable="false" />
-          <Property Name="Code" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="Code" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="IsRegistered" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'BackLite.dbo.Accounts.View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
+warning 6002: The table/view 'BackLite.dbo.Accounts.View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Accounts_View">
           <Key>
             <PropertyRef Name="AccountId" />
+            
+            
+            
           </Key>
           <Property Name="AccountId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="ClientId" Type="int" Nullable="false" />
-          <Property Name="Identifier" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="Identifier" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="PlatformId" Type="int" Nullable="false" />
-          <Property Name="Code" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="PlatformGroupId" Type="int" />
         </EntityType>
+        <Function Name="Platforms_Tree" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Platforms.Tree" />
+        <EntityContainer Name="BackLiteModelStoreContainer">
+          <EntitySet Name="Accounts_Codes_View" EntityType="Self.Accounts_Codes_View" store:Type="Views" store:Schema="dbo" store:Name="Accounts.Codes.View">
+            <DefiningQuery>SELECT 
+[Accounts_Codes_View].[CodeId] AS [CodeId], 
+[Accounts_Codes_View].[AccountId] AS [AccountId], 
+[Accounts_Codes_View].[Code] AS [Code], 
+[Accounts_Codes_View].[IsRegistered] AS [IsRegistered]
+FROM [dbo].[Accounts.Codes.View] AS [Accounts_Codes_View]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Accounts_View" EntityType="Self.Accounts_View" store:Type="Views" store:Schema="dbo" store:Name="Accounts.View">
+            <DefiningQuery>SELECT 
+[Accounts_View].[AccountId] AS [AccountId], 
+[Accounts_View].[ClientId] AS [ClientId], 
+[Accounts_View].[Identifier] AS [Identifier], 
+[Accounts_View].[PlatformId] AS [PlatformId], 
+[Accounts_View].[PlatformGroupId] AS [PlatformGroupId]
+FROM [dbo].[Accounts.View] AS [Accounts_View]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -60,6 +65,7 @@
             <End Role="Account" EntitySet="Accounts" />
             <End Role="AccountCode" EntitySet="AccountCodes" />
           </AssociationSet>
+          <FunctionImport Name="Platforms_Tree" ReturnType="Collection(BackLiteModel.Platforms_Tree_Result)" />
         </EntityContainer>
         <EntityType Name="AccountCode">
           <Key>
@@ -79,8 +85,8 @@
           <Property Type="Int32" Name="ClientId" Nullable="false" />
           <Property Type="String" Name="Identifier" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="PlatformId" Nullable="false" />
-          <Property Type="String" Name="Code" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AccountCodes" Relationship="BackLiteModel.AccountAccountCode" FromRole="Account" ToRole="AccountCode" />
+          <Property Name="PlatformGroupId" Type="Int32" />
         </EntityType>
         <Association Name="AccountAccountCode">
           <End Type="BackLiteModel.Account" Role="Account" Multiplicity="1" />
@@ -94,6 +100,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="Platforms_Tree_Result">
+          <Property Type="Int32" Name="Id" Nullable="true" />
+          <Property Type="Int32" Name="ParentId" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="150" />
+          <Property Type="Int32" Name="PlatformGroupId" Nullable="true" />
+          <Property Type="Int32" Name="PlatformId" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -113,7 +126,7 @@
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="BackLiteModel.Account">
               <MappingFragment StoreEntitySet="Accounts_View">
-                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="PlatformGroupId" ColumnName="PlatformGroupId" />
                 <ScalarProperty Name="PlatformId" ColumnName="PlatformId" />
                 <ScalarProperty Name="Identifier" ColumnName="Identifier" />
                 <ScalarProperty Name="ClientId" ColumnName="ClientId" />
@@ -121,6 +134,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Platforms_Tree" FunctionName="BackLiteModel.Store.Platforms_Tree">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BackLiteModel.Platforms_Tree_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PlatformGroupId" ColumnName="PlatformGroupId" />
+                <ScalarProperty Name="PlatformId" ColumnName="PlatformId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -138,6 +162,7 @@
         <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

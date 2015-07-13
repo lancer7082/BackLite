@@ -26,12 +26,15 @@ BEGIN
     [AccountId] INT PRIMARY KEY IDENTITY(1,1),
     [ClientId] INT NOT NULL,
     [Identifier] VARCHAR(30) NOT NULL,
-    [PlatformId] INT NOT NULL,
-    [Code] VARCHAR(30) NOT NULL
+    [PlatformId] INT NOT NULL
+    --[Code] VARCHAR(30) NOT NULL
   )
 
-  ALTER TABLE [dbo].[Accounts] ADD CONSTRAINT [FK_Clients_ClientId] FOREIGN KEY ([ClientId])
+  ALTER TABLE [dbo].[Accounts] ADD CONSTRAINT [FK_Accounts#ClientId] FOREIGN KEY ([ClientId])
   REFERENCES [dbo].[Clients]([ClientId]) 
+
+  ALTER TABLE [dbo].[Accounts] ADD CONSTRAINT [FK_Accounts#PlatformId] FOREIGN KEY ([PlatformId])
+  REFERENCES [dbo].[Platforms]([PlatformId]) 
 END
 
 IF OBJECT_ID('[dbo].[Accounts.Codes]') IS NULL
@@ -46,3 +49,31 @@ BEGIN
   ALTER TABLE [dbo].[Accounts.Codes] ADD CONSTRAINT [FK_Accounts.Codes#AccountId] FOREIGN KEY ([AccountId])
   REFERENCES [dbo].[Accounts]([AccountId]) 
 END
+
+IF OBJECT_ID('[dbo].[Platforms]') IS NULL
+BEGIN
+	CREATE TABLE [dbo].[Platforms] (
+    [PlatformId] INT PRIMARY KEY IDENTITY(1,1),
+    [Name] VARCHAR(150) NOT NULL,
+    [Code] VARCHAR(30) NOT NULL,
+    [PlatformGroupId] INT  
+  )
+
+  --ALTER TABLE [dbo].[Platforms] DROP CONSTRAINT [FK_Platforms#PlatformGroupId]
+  ALTER TABLE [dbo].[Platforms] ADD CONSTRAINT [FK_Platforms#PlatformGroupId] FOREIGN KEY ([PlatformGroupId])
+  REFERENCES [dbo].[Platforms.Groups]([PlatformGroupId]) 
+END
+
+IF OBJECT_ID('[dbo].[Platforms.Groups]') IS NULL
+BEGIN
+	CREATE TABLE [dbo].[Platforms.Groups] (
+    [PlatformGroupId] INT PRIMARY KEY IDENTITY(1,1),
+    [Name] VARCHAR(150) NOT NULL,
+    [Code] VARCHAR(30) NOT NULL
+  )
+END
+
+RETURN
+
+ALTER TABLE [dbo].[Platforms.Groups] ALTER COLUMN [Name] VARCHAR(150) NOT NULL
+ALTER TABLE [dbo].[Platforms] ALTER COLUMN [Name] VARCHAR(150) NOT NULL

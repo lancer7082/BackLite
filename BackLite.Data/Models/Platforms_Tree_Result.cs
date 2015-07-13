@@ -10,21 +10,13 @@
 namespace BackLite.Data.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Account
+    public partial class Platforms_Tree_Result
     {
-        public Account()
-        {
-            this.AccountCodes = new HashSet<AccountCode>();
-        }
-    
-        public int AccountId { get; set; }
-        public int ClientId { get; set; }
-        public string Identifier { get; set; }
-        public int PlatformId { get; set; }
+        public Nullable<int> Id { get; set; }
+        public Nullable<int> ParentId { get; set; }
+        public string Name { get; set; }
         public Nullable<int> PlatformGroupId { get; set; }
-    
-        public virtual ICollection<AccountCode> AccountCodes { get; set; }
+        public Nullable<int> PlatformId { get; set; }
     }
 }

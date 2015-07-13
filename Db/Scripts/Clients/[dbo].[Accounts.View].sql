@@ -4,11 +4,13 @@ GO
 -- DROP PROCEDURE [dbo].[Accounts.View]
 -- GO
 
-CREATE VIEW [dbo].[Accounts.View]
+ALTER VIEW [dbo].[Accounts.View]
 AS
   SELECT --TOP 20 
-    A.[AccountId], A.[ClientId], A.[Identifier], A.[PlatformId], A.[Code]
+    A.[AccountId], A.[ClientId], A.[Identifier], A.[PlatformId],
+    P.[PlatformGroupId]
   FROM [dbo].[Accounts] A
+  INNER JOIN [dbo].[Platforms] P ON P.[PlatformId] = A.[PlatformId]
 GO
 
 RETURN
