@@ -8,6 +8,9 @@
         <EntityTypeShape EntityType="BackLiteModel.AccountCode" Width="1.5" PointX="3.125" PointY="0.75" />
         <EntityTypeShape EntityType="BackLiteModel.Account" Width="1.5" PointX="0.625" PointY="0.625" />
         <AssociationConnector Association="BackLiteModel.AccountAccountCode" />
+        <EntityTypeShape EntityType="BackLiteModel.TransactionDeal" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="BackLiteModel.TransactionMoney" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="BackLiteModel.TransactionsViewItem" Width="1.5" PointX="4.75" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

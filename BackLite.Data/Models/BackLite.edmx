@@ -34,7 +34,53 @@ warning 6002: The table/view 'BackLite.dbo.Accounts.View' does not have a primar
           <Property Name="PlatformId" Type="int" Nullable="false" />
           <Property Name="PlatformGroupId" Type="int" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BackLite.dbo.Transaction.Deal.View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Transaction_Deal_View">
+          <Key>
+            <PropertyRef Name="TranId" />
+          </Key>
+          <Property Name="TranId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountId" Type="int" Nullable="false" />
+          <Property Name="TranTypeId" Type="smallint" Nullable="false" />
+          <Property Name="InstrumentId" Type="int" />
+          <Property Name="Quantity" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="Price" Type="numeric" Precision="18" Scale="6" />
+          <Property Name="Sum" Type="numeric" Precision="18" Scale="2" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BackLite.dbo.Transaction.Money.View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Transaction_Money_View">
+          <Key>
+            <PropertyRef Name="TranId" />
+          </Key>
+          <Property Name="TranId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountId" Type="int" Nullable="false" />
+          <Property Name="TranTypeId" Type="smallint" Nullable="false" />
+          <Property Name="Sum" Type="numeric" Precision="18" Scale="2" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BackLite.dbo.Transactions.View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Transactions_View">
+          <Key>
+            <PropertyRef Name="TranId" />
+          </Key>
+          <Property Name="TranId" Type="int" Nullable="false" />
+          <Property Name="AccountId" Type="int" Nullable="false" />
+          <Property Name="TranTypeId" Type="smallint" Nullable="false" />
+          <Property Name="InstrumentId" Type="int" />
+          <Property Name="Quantity" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="Price" Type="numeric" Precision="18" Scale="6" />
+          <Property Name="Sum" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Identifier" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
         <Function Name="Platforms_Tree" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Platforms.Tree" />
+        <Function Name="Transaction_Money_Modify" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Transaction.Money.Modify">
+          <Parameter Name="TranId" Type="int" Mode="In" />
+          <Parameter Name="AccountId" Type="int" Mode="In" />
+          <Parameter Name="TranTypeId" Type="smallint" Mode="In" />
+          <Parameter Name="Sum" Type="numeric" Mode="In" />
+        </Function>
         <EntityContainer Name="BackLiteModelStoreContainer">
           <EntitySet Name="Accounts_Codes_View" EntityType="Self.Accounts_Codes_View" store:Type="Views" store:Schema="dbo" store:Name="Accounts.Codes.View">
             <DefiningQuery>SELECT 
@@ -53,6 +99,37 @@ FROM [dbo].[Accounts.Codes.View] AS [Accounts_Codes_View]</DefiningQuery>
 [Accounts_View].[PlatformGroupId] AS [PlatformGroupId]
 FROM [dbo].[Accounts.View] AS [Accounts_View]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="Transaction_Deal_View" EntityType="Self.Transaction_Deal_View" store:Type="Views" store:Schema="dbo" store:Name="Transaction.Deal.View">
+            <DefiningQuery>SELECT 
+[Transaction_Deal_View].[TranId] AS [TranId], 
+[Transaction_Deal_View].[AccountId] AS [AccountId], 
+[Transaction_Deal_View].[TranTypeId] AS [TranTypeId], 
+[Transaction_Deal_View].[InstrumentId] AS [InstrumentId], 
+[Transaction_Deal_View].[Quantity] AS [Quantity], 
+[Transaction_Deal_View].[Price] AS [Price], 
+[Transaction_Deal_View].[Sum] AS [Sum]
+FROM [dbo].[Transaction.Deal.View] AS [Transaction_Deal_View]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Transaction_Money_View" EntityType="Self.Transaction_Money_View" store:Type="Views" store:Schema="dbo" store:Name="Transaction.Money.View">
+            <DefiningQuery>SELECT 
+[Transaction_Money_View].[TranId] AS [TranId], 
+[Transaction_Money_View].[AccountId] AS [AccountId], 
+[Transaction_Money_View].[TranTypeId] AS [TranTypeId], 
+[Transaction_Money_View].[Sum] AS [Sum]
+FROM [dbo].[Transaction.Money.View] AS [Transaction_Money_View]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Transactions_View" EntityType="Self.Transactions_View" store:Type="Views" store:Schema="dbo" store:Name="Transactions.View">
+            <DefiningQuery>SELECT 
+[Transactions_View].[TranId] AS [TranId], 
+[Transactions_View].[AccountId] AS [AccountId], 
+[Transactions_View].[TranTypeId] AS [TranTypeId], 
+[Transactions_View].[InstrumentId] AS [InstrumentId], 
+[Transactions_View].[Quantity] AS [Quantity], 
+[Transactions_View].[Price] AS [Price], 
+[Transactions_View].[Sum] AS [Sum], 
+[Transactions_View].[Identifier] AS [Identifier]
+FROM [dbo].[Transactions.View] AS [Transactions_View]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -66,6 +143,15 @@ FROM [dbo].[Accounts.View] AS [Accounts_View]</DefiningQuery>
             <End Role="AccountCode" EntitySet="AccountCodes" />
           </AssociationSet>
           <FunctionImport Name="Platforms_Tree" ReturnType="Collection(BackLiteModel.Platforms_Tree_Result)" />
+          <EntitySet Name="TransactionsDeal" EntityType="BackLiteModel.TransactionDeal" />
+          <EntitySet Name="TransactionsMoney" EntityType="BackLiteModel.TransactionMoney" />
+          <EntitySet Name="Transactions" EntityType="BackLiteModel.TransactionsViewItem" />
+          <FunctionImport Name="Transaction_Money_Modify">
+            <Parameter Name="TranId" Mode="In" Type="Int32" />
+            <Parameter Name="AccountId" Mode="In" Type="Int32" />
+            <Parameter Name="TranTypeId" Mode="In" Type="Int16" />
+            <Parameter Name="Sum" Mode="In" Type="Decimal" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="AccountCode">
           <Key>
@@ -107,6 +193,40 @@ FROM [dbo].[Accounts.View] AS [Accounts_View]</DefiningQuery>
           <Property Type="Int32" Name="PlatformGroupId" Nullable="true" />
           <Property Type="Int32" Name="PlatformId" Nullable="true" />
         </ComplexType>
+        <EntityType Name="TransactionDeal">
+          <Key>
+            <PropertyRef Name="TranId" />
+          </Key>
+          <Property Name="TranId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountId" Type="Int32" Nullable="false" />
+          <Property Name="TranTypeId" Type="Int16" Nullable="false" />
+          <Property Name="InstrumentId" Type="Int32" />
+          <Property Name="Quantity" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="Sum" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="TransactionMoney">
+          <Key>
+            <PropertyRef Name="TranId" />
+          </Key>
+          <Property Name="TranId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountId" Type="Int32" Nullable="false" />
+          <Property Name="TranTypeId" Type="Int16" Nullable="false" />
+          <Property Name="Sum" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="TransactionsViewItem">
+          <Key>
+            <PropertyRef Name="TranId" />
+          </Key>
+          <Property Name="TranId" Type="Int32" Nullable="false" />
+          <Property Name="AccountId" Type="Int32" Nullable="false" />
+          <Property Name="TranTypeId" Type="Int16" Nullable="false" />
+          <Property Name="InstrumentId" Type="Int32" />
+          <Property Name="Quantity" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="Sum" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Identifier" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -145,6 +265,44 @@ FROM [dbo].[Accounts.View] AS [Accounts_View]</DefiningQuery>
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="TransactionsDeal">
+            <EntityTypeMapping TypeName="BackLiteModel.TransactionDeal">
+              <MappingFragment StoreEntitySet="Transaction_Deal_View">
+                <ScalarProperty Name="Sum" ColumnName="Sum" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="InstrumentId" ColumnName="InstrumentId" />
+                <ScalarProperty Name="TranTypeId" ColumnName="TranTypeId" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="TranId" ColumnName="TranId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionsMoney">
+            <EntityTypeMapping TypeName="BackLiteModel.TransactionMoney">
+              <MappingFragment StoreEntitySet="Transaction_Money_View">
+                <ScalarProperty Name="Sum" ColumnName="Sum" />
+                <ScalarProperty Name="TranTypeId" ColumnName="TranTypeId" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="TranId" ColumnName="TranId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transactions">
+            <EntityTypeMapping TypeName="BackLiteModel.TransactionsViewItem">
+              <MappingFragment StoreEntitySet="Transactions_View">
+                <ScalarProperty Name="Identifier" ColumnName="Identifier" />
+                <ScalarProperty Name="Sum" ColumnName="Sum" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="InstrumentId" ColumnName="InstrumentId" />
+                <ScalarProperty Name="TranTypeId" ColumnName="TranTypeId" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="TranId" ColumnName="TranId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Transaction_Money_Modify" FunctionName="BackLiteModel.Store.Transaction_Money_Modify" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

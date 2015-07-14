@@ -29,10 +29,34 @@ namespace BackLite.Data.Models
     
         public DbSet<AccountCode> AccountCodes { get; set; }
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<TransactionDeal> TransactionsDeal { get; set; }
+        public DbSet<TransactionMoney> TransactionsMoney { get; set; }
+        public DbSet<TransactionsViewItem> Transactions { get; set; }
     
         public virtual ObjectResult<Platforms_Tree_Result> Platforms_Tree()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Platforms_Tree_Result>("Platforms_Tree");
+        }
+    
+        public virtual int Transaction_Money_Modify(Nullable<int> tranId, Nullable<int> accountId, Nullable<short> tranTypeId, Nullable<decimal> sum)
+        {
+            var tranIdParameter = tranId.HasValue ?
+                new ObjectParameter("TranId", tranId) :
+                new ObjectParameter("TranId", typeof(int));
+    
+            var accountIdParameter = accountId.HasValue ?
+                new ObjectParameter("AccountId", accountId) :
+                new ObjectParameter("AccountId", typeof(int));
+    
+            var tranTypeIdParameter = tranTypeId.HasValue ?
+                new ObjectParameter("TranTypeId", tranTypeId) :
+                new ObjectParameter("TranTypeId", typeof(short));
+    
+            var sumParameter = sum.HasValue ?
+                new ObjectParameter("Sum", sum) :
+                new ObjectParameter("Sum", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Transaction_Money_Modify", tranIdParameter, accountIdParameter, tranTypeIdParameter, sumParameter);
         }
     }
 }

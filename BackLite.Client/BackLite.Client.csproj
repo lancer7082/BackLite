@@ -35,6 +35,7 @@
     <Reference Include="DevExpress.Data.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Printing.v14.1.Core, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Utils.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraBars.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraTreeList.v14.1, Version=14.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -58,11 +59,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountView.cs">
+    <Compile Include="BackOffice\AccountView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AccountView.Designer.cs">
+    <Compile Include="BackOffice\AccountView.Designer.cs">
       <DependentUpon>AccountView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BackOffice\TransactionsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BackOffice\TransactionsView.Designer.cs">
+      <DependentUpon>TransactionsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForms\FormBaseJournal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForms\FormBaseJournal.Designer.cs">
+      <DependentUpon>FormBaseJournal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForms\FormBaseEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForms\FormBaseEdit.Designer.cs">
+      <DependentUpon>FormBaseEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -72,8 +91,23 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AccountView.resx">
+    <Compile Include="BackOffice\TransactionMoneyView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BackOffice\TransactionMoneyView.Designer.cs">
+      <DependentUpon>TransactionMoneyView.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="BackOffice\AccountView.resx">
       <DependentUpon>AccountView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BackOffice\TransactionsView.resx">
+      <DependentUpon>TransactionsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForms\FormBaseJournal.resx">
+      <DependentUpon>FormBaseJournal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForms\FormBaseEdit.resx">
+      <DependentUpon>FormBaseEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -88,10 +122,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BackOffice\TransactionMoneyView.resx">
+      <DependentUpon>TransactionMoneyView.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\BackLite.Data.Models.Account.datasource" />
     <None Include="Properties\DataSources\BackLite.Data.Models.AccountCode.datasource" />
     <None Include="Properties\DataSources\BackLite.Data.Models.Platforms_Tree_Result.datasource" />
+    <None Include="Properties\DataSources\BackLite.Data.Models.TransactionDeal.datasource" />
+    <None Include="Properties\DataSources\BackLite.Data.Models.TransactionMoney.datasource" />
+    <None Include="Properties\DataSources\BackLite.Data.Models.TransactionsViewItem.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -113,6 +153,7 @@
       <Name>BackLite.Data</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

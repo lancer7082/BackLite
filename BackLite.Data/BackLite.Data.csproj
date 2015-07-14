@@ -80,11 +80,22 @@
     <Compile Include="Models\Platforms_Tree_Result.cs">
       <DependentUpon>BackLite.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TransactionDeal.cs">
+      <DependentUpon>BackLite.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TransactionMoney.cs">
+      <DependentUpon>BackLite.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TransactionsViewItem.cs">
+      <DependentUpon>BackLite.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <EntityDeploy Include="Models\BackLite.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>BackLite1.Designer.cs</LastGenOutput>
