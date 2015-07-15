@@ -71,6 +71,13 @@
     <Compile Include="BackOffice\TransactionsView.Designer.cs">
       <DependentUpon>TransactionsView.cs</DependentUpon>
     </Compile>
+    <Compile Include="BaseForms\BaseEditController.cs" />
+    <Compile Include="BaseForms\BaseEditControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaseForms\BaseEditControl.Designer.cs">
+      <DependentUpon>BaseEditControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="BaseForms\FormBaseJournal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,11 +104,21 @@
     <Compile Include="BackOffice\TransactionMoneyView.Designer.cs">
       <DependentUpon>TransactionMoneyView.cs</DependentUpon>
     </Compile>
+    <Compile Include="BackOffice\TransactionMoneyController.cs" />
+    <Compile Include="BackOffice\TransactionMoneyControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BackOffice\TransactionMoneyControl.Designer.cs">
+      <DependentUpon>TransactionMoneyControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="BackOffice\AccountView.resx">
       <DependentUpon>AccountView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BackOffice\TransactionsView.resx">
       <DependentUpon>TransactionsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForms\BaseEditControl.resx">
+      <DependentUpon>BaseEditControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BaseForms\FormBaseJournal.resx">
       <DependentUpon>FormBaseJournal.cs</DependentUpon>
@@ -124,6 +141,9 @@
     </Compile>
     <EmbeddedResource Include="BackOffice\TransactionMoneyView.resx">
       <DependentUpon>TransactionMoneyView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BackOffice\TransactionMoneyControl.resx">
+      <DependentUpon>TransactionMoneyControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\BackLite.Data.Models.Account.datasource" />

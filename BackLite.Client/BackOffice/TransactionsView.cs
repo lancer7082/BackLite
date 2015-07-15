@@ -27,7 +27,8 @@ namespace BackLite.Client
         private void mnNew_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             var tran = new TransactionMoney();
-            new TransactionMoneyView().ShowModal(tran); 
+            //new TransactionMoneyView().ShowModal(tran); 
+            new TransactionMoneyController().View(tran);
         }
     }
 }
